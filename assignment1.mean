@@ -1,0 +1,56 @@
+import java.util.*;
+
+public class StatsCalculator{
+    public static void main(String[] args) {
+        int[] numbers = {16, 18, 27, 16, 23, 21, 19};
+
+        // Calculate Mean
+        double mean = calculateMean(numbers);
+        System.out.println("Mean = " + mean);
+
+        // Calculate Median
+        int median = calculateMedian(numbers);
+        System.out.println("Median = " + median);
+
+        // Calculate Mode
+        int mode = calculateMode(numbers);
+        System.out.println("Mode = " + mode);
+    }
+
+    public static double calculateMean(int[] numbers) {
+        double sum = 0;
+        for (int num : numbers) {
+            sum += num;
+        }
+        return sum / numbers.length;
+    }
+
+    public static int calculateMedian(int[] numbers) {
+        Arrays.sort(numbers);
+        int middle = numbers.length / 2;
+        if (numbers.length % 2 == 0) {
+            // Average of two middle elements for even-sized array
+            return (numbers[middle - 1] + numbers[middle]) / 2;
+        } else {
+            // Middle element for odd-sized array
+            return numbers[middle];
+        }
+    }
+
+    public static int calculateMode(int[] numbers) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        int maxFrequency = 0;
+        int mode = -1;
+
+        for (int num : numbers) {
+            int frequency = frequencyMap.getOrDefault(num, 0) + 1;
+            frequencyMap.put(num, frequency);
+
+            if (frequency > maxFrequency) {
+                maxFrequency = frequency;
+                mode = num;
+            }
+        }
+        return mode;
+    }
+}
